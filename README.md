@@ -36,7 +36,7 @@ flow_type = 'bidirectional'
 file = '16-09-23.parquet'
 
 # Load the Parquet file from the specified path
-df = pd.read_parquet(os.path.join('./flows/', flow_type, file), engine='pyarrow')
+df = pd.read_parquet(os.path.join('./data/', flow_type, file), engine='pyarrow')
 
 # Display the first few rows
 print(df.head())
