@@ -89,7 +89,7 @@ Including payload bytes in custom flows enables learning models to discover both
 
 ## G. Illustration of Custom Flow Structure
 
-![Structure of custom flow records constructed from raw network traffic.](Fig/customflow.svg)  
+![Structure of custom flow records constructed from raw network traffic.](Fig/customflow.png)  
 *Figure 1: Structure of custom flow records constructed from raw network traffic.*
 
 ---
