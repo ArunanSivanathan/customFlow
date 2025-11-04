@@ -1,11 +1,17 @@
-# Custom Flow
-
 # Custom Flow – A Comprehensive Network Traffic Representation
+
+## Abstract
+This paper presents a comprehensive dataset of **custom flow** representations derived from raw network traffic, designed to capture detailed behavioral characteristics of IoT communications. Each custom flow encapsulates comprehensive network behavior in a vectorized format, including flow-level metadata, the sequence of individual packets within the flow, and a subset of payloads. Flows are uniquely identified by a five-tuple—device IP address, remote IP address, protocol, device port, and remote port—and have a fixed lifetime of one minute. To maintain consistent temporal granularity and computational efficiency, long-lived connections such as persistent IoT–cloud sessions are segmented into consecutive flow records sharing the same identifier.
+
+The dataset was generated from 60 days of PCAP traces publicly available through the UNSW IoT Traffic Analytics platform. Two distinct variants are provided: 1) **Bidirectional custom flows**, capturing both upstream and downstream packets (~6 million flows), and, 2) **Unidirectional custom flows**, capturing only upstream packets from the device perspective (~3.5 million flows).
+
+Each day’s data is stored as a separate **Parquet file**, compressed by direction to facilitate scalable analysis. This dataset provides a fine-grained yet computationally efficient representation of network behavior, enabling advanced research in traffic analysis, anomaly detection, and IoT device identification.
+
 
 ## A. Overview
 
-Analysing patterns in network traffic can be performed at both **micro** and **macro** levels.  
-At the **micro level**, inspecting byte values within packet headers and payloads provides detailed behavioural insights but is often computationally expensive and limited in capturing broader communication context.  
+Analyzing patterns in network traffic can be performed at both **micro** and **macro** levels.  
+At the **micro level**, inspecting byte values within packet headers and payloads provides detailed behavioral insights but is often computationally expensive and limited in capturing broader communication context.  
 At the **macro level**, flow-based aggregation offers a more scalable and cost-effective alternative. A *network flow* represents a sequence of packets sharing common properties such as source/destination IP addresses, source/destination port numbers, and protocol (e.g., TCP or UDP).  
 
 While flow records are efficient for large-scale monitoring, they may lack the granularity needed for fine-grained classification of diverse devices and applications.  
@@ -15,7 +21,7 @@ To address this, we propose a **hybrid representation** that combines the streng
 
 ## B. Custom Bidirectional Flow Design
 
-We introduce **custom bidirectional flows** to provide a comprehensive representation of network behaviours. Each custom flow aggregates metadata (key header fields), statistical summaries, packet timestamps and directions, and a subset of payload bytes from the first few packets in the flow.
+We introduce **custom bidirectional flows** to provide a comprehensive representation of network behaviors. Each custom flow aggregates metadata (key header fields), statistical summaries, packet timestamps and directions, and a subset of payload bytes from the first few packets in the flow.
 
 A custom flow is uniquely identified by a **five-tuple**:  
 *device IP address, remote IP address, protocol, device port, and remote port*,  
@@ -39,10 +45,10 @@ For **device-to-cloud** traffic, only a single bidirectional flow is recorded an
 
 ---
 
-## D. Flow Metadata and Generalisation
+## D. Flow Metadata and Generalization
 
-While TCP headers can exhibit device-specific characteristics [5], we intentionally exclude them to preserve **model generalisability**.  
-Our design prioritises capturing discriminative information from the **transport-layer payload**, which often embeds unique **application-layer** behaviours revealing manufacturer signatures or functionality traits.
+While TCP headers can exhibit device-specific characteristics [5], we intentionally exclude them to preserve **model generalization**.  
+Our design prioritizes capturing discriminative information from the **transport-layer payload**, which often embeds unique **application-layer** behaviors revealing manufacturer signatures or functionality traits.
 
 Each custom flow includes the following metadata:
 
@@ -52,15 +58,15 @@ Each custom flow includes the following metadata:
 - `device-side port` and `remote-side port`  
 - total byte count and total packet count  
 
-Local private IP ranges (`10.0.0.0/8`, `192.168.0.0/16`, `172.16.0.0/12`) of the remote endpoint are anonymised as `0.0.0.0`.  
+Local private IP ranges (`10.0.0.0/8`, `192.168.0.0/16`, `172.16.0.0/12`) of the remote endpoint are anonymized as `0.0.0.0`.  
 To support portability across deployments, we exclude environment-specific identifiers such as MAC addresses and local IPs.
 
 ---
 
 ## E. Fine-Grained Packet-Level Features
 
-To capture behavioural fingerprints within the flow, we include fine-grained information from the **first *i* packets** of each flow.  
-The total number of packets and payload sizes can vary substantially, so analysing every packet is impractical.
+To capture behavioral fingerprints within the flow, we include fine-grained information from the **first *i* packets** of each flow.  
+The total number of packets and payload sizes can vary substantially, so analyzing every packet is impractical.
 
 Empirical studies [6] indicate that distinguishing features often appear in the **early bytes** of initial packets.  
 Accordingly, for each of the first *i* packets, we record:
@@ -83,7 +89,7 @@ Therefore, we set *i = 10* and *j = 1,000*.
 ## F. Payload Considerations
 
 We make **no assumptions** about payload contents—whether encrypted, encoded, or plaintext [7].  
-Including payload bytes in custom flows enables learning models to discover both strong and weak behavioural patterns that characterise IoT device operations, even in encrypted traffic.
+Including payload bytes in custom flows enables learning models to discover both strong and weak behavioral patterns that characterize IoT device operations, even in encrypted traffic.
 
 ---
 
@@ -99,8 +105,8 @@ Including payload bytes in custom flows enables learning models to discover both
 The data was constructed by analyzing a public dataset of PCAP traces from [UNSW IoT Analytics](https://iotanalytics.unsw.edu.au/iottraces.html), collected by researchers at UNSW Sydney. It contains **60 days of traffic** from **22 consumer IoT device types**, including cameras, lightbulbs, power plugs, sensors, appliances, and health monitors.  
 After processing, we extracted over **5.9 million custom flow records**.  
 
-Table I summarises the number of flows per device type.  
-The activity levels vary widely between devices—for instance, **Amazon Echo**, **Insteon camera**, and **Belkin motion sensor** generate significantly more flows than low-activity devices like **Withings scale**.
+Table I summarizes the number of flows per device type.  
+The activity levels vary widely between devices—for instance, **Amazon Echo**, **Insteon camera**, and **Belkin motion sensor** generate significantly more flows than low-activity devices like the **Withings scale**.
 
 ---
 
@@ -130,7 +136,7 @@ The activity levels vary widely between devices—for instance, **Amazon Echo**,
 | Withings sleep sensor       | 96,332             |
 | IT (Android tablet)         | 235,311            |
 
-
+---
 
 ### Parsing Parquet Data Files
 
@@ -162,10 +168,3 @@ df = pd.read_parquet(os.path.join('./data/', flow_type, file), engine='pyarrow')
 # Display the first few rows
 print(df.head())
 ```
-
-## Cite Our Data
-[1] A. Sivanathan, D. Mishra, S. Ruj, N. Fernandes, Q. Z. Sheng, . Luo, D. Coscia, G. Batista and H. Habibi Gharakaheili, "Leveraging Neural Networks to Decode IoT Network Traffic Patterns and Sequence Dynamics", under review at IEEE Transcations on Netwrok and Service Management, Nov 2024.
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](./LICENSE.md) file for details.
