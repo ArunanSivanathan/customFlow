@@ -42,8 +42,24 @@ df = pd.read_parquet(os.path.join('./data/', flow_type, file), engine='pyarrow')
 print(df.head())
 ```
 
+#### Data Representation
+
+The parquet files contains following columns
+**Device** - Device Mac Address
+**FirstSeen** - Flow timestamp
+**RemIP** - Remote IP
+**Proto** - Transport layer Protocol
+**DevPort** - Device side port number of flow
+**RemPort** - Remote side port number of flow
+**TotalFlowSize** - Total byte count of the flow
+**PacketCount** - Total packet count of the flow
+**P00_TO** - **P10_TO** - Time offset of first 10 packets
+**P00_PS** - **P10_PS** - Packet size of first 10 packets
+**P00_D** - **P10_D** - Direction of first 10 packets
+**C_000** - **C_2999** - Payload of upto 10 packets.  We use `-4` and `-8` as delimiters for the start and end of each packet’s payload
+
 ## Cite Our Data
-[1] A. Sivanathan, D. Mishra, S. Ruj, N. Fernandes, Q. Z. Sheng, . Luo, D. Coscia, G. Batista and H. Habibi Gharakaheili, "Leveraging Neural Networks to Decode IoT Network Traffic Patterns and Sequence Dynamics", under review at IEEE Transcations on Netwrok and Service Management, Nov 2024.
+Sivanathan, Arunan; Gharakheili, Hassan Habibi (Forthcoming 2025). IoT Network Traffic Dataset Using the Custom Flow Representation [Dataset]. Dryad. https://doi.org/10.5061/dryad.6q573n6c1
 
 ## License
 
