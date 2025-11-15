@@ -11,6 +11,9 @@ Explicit demarcation is used to preserve traffic semantics in a well-organized a
 
 The data was constructed by analyzing a public dataset of PCAP traces from [UNSW IoT Analytics](https://iotanalytics.unsw.edu.au/iottraces.html), collected by researchers at UNSW Sydney.
 
+## Download Data Files
+[The dataset is hosted on Dryad.](https://doi.org/10.5061/dryad.6q573n6c1)
+
 ## Parsing Parquet Data Files
 
 To analyze the customFlow data in this repository, which is provided in Parquet format, follow these steps:
@@ -37,6 +40,7 @@ file = '16-09-23.parquet'
 
 # Load the Parquet file from the specified path
 df = pd.read_parquet(os.path.join('./data/', flow_type, file), engine='pyarrow')
+[Download files](https://doi.org/10.5061/dryad.6q573n6c1)
 
 # Display the first few rows
 print(df.head())
