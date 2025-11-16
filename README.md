@@ -48,23 +48,21 @@ print(df.head())
 
 #### Data Representation
 
-The parquet files contains following columns
-**Device** - Device Mac Address
-**FirstSeen** - Flow timestamp
-**RemIP** - Remote IP
-**Proto** - Transport layer Protocol
-**DevPort** - Device side port number of flow
-**RemPort** - Remote side port number of flow
-**TotalFlowSize** - Total byte count of the flow
-**PacketCount** - Total packet count of the flow
-**P00_TO** - **P10_TO** - Time offset of first 10 packets
-**P00_PS** - **P10_PS** - Packet size of first 10 packets
-**P00_D** - **P10_D** - Direction of first 10 packets
-**C_000** - **C_2999** - Payload of upto 10 packets.  We use `-4` and `-8` as delimiters for the start and end of each packet’s payload
+The parquet files contains following columns:
+
+- **Device** - Device Mac Address
+- **FirstSeen** - Flow timestamp
+- **RemIP** - Remote IP
+- **Proto** - Transport layer Protocol
+- **DevPort** - Device side port number of flow
+- **RemPort** - Remote side port number of flow
+- **TotalFlowSize** - Total byte count of the flow
+- **PacketCount** - Total packet count of the flow
+- **P00_TO** - **P10_TO** - Time offset of first 10 packets
+- **P00_PS** - **P10_PS** - Packet size of first 10 packets
+- **P00_D** - **P10_D** - Direction of first 10 packets
+- **C_000** - **C_2999** - Payload of upto 10 packets.  We use `-4` and `-8` as delimiters for the start and end of each packet's payload
 
 ## Cite Our Data
 A. Sivanathan, D. Mishra, S. Ruj, N. Fernandes, Q. Z. Sheng, M. Tran, B. Luo, D. Coscia, G. Batista and H. Habibi Gharakheili, "Real-Time and Trustworthy Classification of IoT Traffic Using Lightweight Deep Learning", IEEE Transactions on Network Science and Engineering (TNSE), , 2025. DOI: 10.1109/TNSE.2025.3628913
 
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](./LICENSE.md) file for details.
