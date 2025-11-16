@@ -63,7 +63,7 @@ The parquet files contains following columns
 **C_000** - **C_2999** - Payload of upto 10 packets.  We use `-4` and `-8` as delimiters for the start and end of each packet’s payload
 
 ## Cite Our Data
-Sivanathan, Arunan; Gharakheili, Hassan Habibi (Forthcoming 2025). IoT Network Traffic Dataset Using the Custom Flow Representation [Dataset]. Dryad. https://doi.org/10.5061/dryad.6q573n6c1
+A. Sivanathan, D. Mishra, S. Ruj, N. Fernandes, Q. Z. Sheng, M. Tran, B. Luo, D. Coscia, G. Batista and H. Habibi Gharakheili, "Real-Time and Trustworthy Classification of IoT Traffic Using Lightweight Deep Learning", IEEE Transactions on Network Science and Engineering (TNSE), , 2025. DOI: 10.1109/TNSE.2025.3628913
 
 ## License
 
