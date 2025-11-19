@@ -50,7 +50,7 @@ print(df.head())
 
 The parquet files contains following columns:
 
-- **Device** - Device Mac Address
+- **Device** - Device MAC Address
 - **FirstSeen** - Flow timestamp
 - **RemIP** - Remote IP
 - **Proto** - Transport layer Protocol
